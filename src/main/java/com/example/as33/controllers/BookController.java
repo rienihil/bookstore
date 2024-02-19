@@ -1,9 +1,8 @@
 package com.example.as33.controllers;
 
-import com.example.as33.exceptions.BookNotFoundException;
 import com.example.as33.models.Book;
 import com.example.as33.services.interfaces.BookServiceInterface;
-import org.springframework.data.domain.Sort;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("books")
+@RequestMapping("/books")
 public class BookController {
+
+    @Autowired
     private final BookServiceInterface service;
 
     public BookController(BookServiceInterface service) {
@@ -20,25 +21,39 @@ public class BookController {
     }
 
     @GetMapping("/")
-    public List<Book> getAll(){
-        return service.getAll();
+    public List<Book> getAllBooks(){
+        return service.getAllBooks();
     }
 
     @GetMapping("/{book_id}")
-    public ResponseEntity<Book> getById(@PathVariable("book_id") int id){
+    public ResponseEntity<Book> getBookById(@PathVariable("book_id") int id){
         try {
-            Book book = service.getById(id);
+            Book book = service.getBookById(id);
 
             return new ResponseEntity<>(book, HttpStatus.OK);
-        } catch (BookNotFoundException e){
+        } catch (RuntimeException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @GetMapping("/title/{title}")
+    public List<Book> getBookByTitle(@PathVariable String title) {
+        return service.getBookByTitle(title);
+    }
+
+    @GetMapping("/author/{author}")
+    public List<Book> getBookByAuthor(@PathVariable String author) {
+        return service.getBookByAuthor(author);
+    }
+
     @PostMapping("/")
     public Book createBook(@RequestBody Book book){
         return service.createBook(book);
+    }
+    public void deleteBook(@PathVariable int id) {
+
+        service.deleteBookById(id);
     }
 }

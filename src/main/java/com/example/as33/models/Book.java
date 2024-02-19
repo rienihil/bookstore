@@ -1,10 +1,8 @@
 package com.example.as33.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -15,15 +13,14 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
-    private Author author;
-    private double price;
+    private String author;
 
-    public Book(String title,Author author){
+    public Book(String title,String author){
         this.title=title;
         this.author=author;
     }
 
-    public Book(int id,String title,Author author){
+    public Book(int id,String title,String author){
         this.title=title;
         this.author=author;
         setId(id);

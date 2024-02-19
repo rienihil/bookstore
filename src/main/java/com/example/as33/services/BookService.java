@@ -1,6 +1,5 @@
 package com.example.as33.services;
 
-import com.example.as33.exceptions.BookNotFoundException;
 import com.example.as33.models.Book;
 import com.example.as33.repositories.BookRepositoryInterface;
 import com.example.as33.services.interfaces.BookServiceInterface;
@@ -17,17 +16,32 @@ public class BookService implements BookServiceInterface {
         this.repo = repo;
     }
     @Override
-    public List<Book> getAll() {
+    public List<Book> getAllBooks() {
         return repo.findAll(Sort.by("id"));
     }
 
     @Override
-    public Book getById(int id) {
-        return repo.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+    public Book getBookById(int id) {
+        return repo.findById(id).orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public List<Book> getBookByTitle(String title) {
+        return repo.findBookByTitle(title);
     }
 
     @Override
     public Book createBook(Book book) {
-        return repo.save(book);
+        return repo.saveAndFlush(book);
+    }
+
+    @Override
+    public void deleteBookById(int id) {
+        repo.deleteById(id);
+    }
+
+    @Override
+    public List<Book> getBookByAuthor(String author) {
+        return repo.findBookByAuthor(author);
     }
 }

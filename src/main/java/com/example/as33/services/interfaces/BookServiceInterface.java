@@ -5,8 +5,10 @@ import com.example.as33.models.Book;
 import java.util.List;
 
 public interface BookServiceInterface {
-    List<Book> getAll();
-    Book getById(int id);
-    List<Book> findByTitle(String title);
+    List<Book> getAllBooks();
+    Book getBookById(int id);
+    List<Book> getBookByTitle(String title);
     Book createBook(Book book);
+    void deleteBookById(int id);
+    List<Book> getBookByAuthor(String author);
 }
