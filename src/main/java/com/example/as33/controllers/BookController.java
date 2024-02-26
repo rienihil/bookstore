@@ -52,7 +52,9 @@ public class BookController {
     public Book createBook(@RequestBody Book book){
         return service.createBook(book);
     }
-    public void deleteBook(@PathVariable int id) {
+
+    @DeleteMapping("/{book_id}")
+    public void deleteBook(@PathVariable("book_id") int id) {
 
         service.deleteBookById(id);
     }

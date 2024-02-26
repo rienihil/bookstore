@@ -26,6 +26,10 @@ public class User {
         setId(id);
     }
 
+    @JoinTable(name = "purchases",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
+    )
+
     public String toString(){
         return id+". "+username;
     }
