@@ -15,17 +15,20 @@ public class Book {
     private String title;
     private String author;
     private double price;
+    private int category_id;
 
-    public Book(String title,String author,double price){
+    public Book(String title,String author,double price,int category_id){
         this.title=title;
         this.author=author;
         this.price=price;
+        this.category_id=category_id;
     }
 
-    public Book(int id,String title,String author,double price){
+    public Book(int id,String title,String author,double price, int category_id){
         this.title=title;
         this.author=author;
         this.price=price;
+        this.category_id=category_id;
         setId(id);
     }
 

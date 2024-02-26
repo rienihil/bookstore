@@ -16,13 +16,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     private String username;
+    private int role_id;
 
-    public User(String username){
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="id")
+    private Role role;
+
+
+    public User(String username, int role_id){
         this.username=username;
+        this.role_id=role_id;
     }
 
-    public User(int id, String username){
+    public User(int id, String username,int role_id){
         this.username=username;
+        this.role_id=role_id;
         setId(id);
     }
 
